@@ -62,7 +62,7 @@ steps:
     symbolServerType: 'teamServices'
 
 - task: CopyFiles@2
-  displayName: 'Copy nuget packages to staging'
+  displayName: 'Stage Nuget Packages'
   inputs:
     Contents: '**/bin/$(buildConfiguration)/*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'

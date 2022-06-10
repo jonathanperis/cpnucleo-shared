@@ -20,6 +20,7 @@ name: $(date:yyyyMMdd)$(rev:.r)
 steps:
 
 - task: gitversion/execute@0
+  displayName: Set Git Version
   inputs:
     useConfigFile: true
     configFilePath: 'GitVersion.yml'

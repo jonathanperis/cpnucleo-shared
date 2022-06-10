@@ -1,0 +1,79 @@
+trigger:
+- master
+pr:
+- master
+
+variables:
+  solution: '**/*.sln'
+  project: '**/Shared.Core/*.csproj'
+  isMaster: $[eq(variables['Build.SourceBranch'], 'master')]
+  ${{ if eq(variables['Build.SourceBranch'], 'master') }}:
+    buildConfiguration: Release
+  ${{ if ne(variables['Build.SourceBranch'], 'master') }}:
+    buildConfiguration: Debug
+
+pool:
+  vmImage: 'ubuntu-20.04'
+
+name: $(date:yyyyMMdd)$(rev:.r)
+
+steps:
+
+- task: UseGitVersion@5
+  displayName: Set Git Version
+  inputs:
+    versionSpec: '5.x'
+    updateAssemblyInfo: false
+    useConfigFile: true
+    configFilePath: 'GitVersion.yml'
+
+- task: UseDotNet@2
+  displayName: Install .NET SDK
+  inputs:
+    useGlobalJson: true
+    includePreviewVersions: true
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: 'restore'
+    projects: '$(project)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build Solution
+  inputs:
+    command: 'build'
+    projects: |
+      **/*.csproj
+      !**/*.Test.csproj
+    arguments: '--configuration $(BuildConfiguration) --no-restore /p:Version=$(GitVersion.NuGetVersion) /p:SourceLinkCreate=true /p:PublicRelease=true'
+    versioningScheme: byBuildNumber
+
+- task: PublishSymbols@2
+  condition: and(succeeded(), eq(variables.isMaster, 'False'))
+  displayName: Publish Symbols
+  inputs:
+    searchPattern: '**/bin/**/*.pdb'
+    indexSources: false # Optional
+    publishSymbols: true # Optional
+    symbolServerType: 'teamServices'
+
+- task: CopyFiles@2
+  displayName: 'Copy nuget packages to staging'
+  inputs:
+    Contents: '**/bin/$(buildConfiguration)/*.nupkg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    flattenFolders: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+    feedsToUse: 'config'
+    nugetConfigPath: '$(Build.WorkingDirectory)/NuGet.config'

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>Cpnucleo.Shared.Core</RootNamespace>
+		<AssemblyName>Cpnucleo.Shared.Core</AssemblyName>
+		<Copyright>Copyright 2022</Copyright>
+		<Authors>Cpnucleo Team</Authors>
+		<Company>Peris Studio</Company>
+		<Product>Cpnucleo</Product>
+		<PackageProjectUrl>https://jonathanperis.github.io/</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/jonathanperis/cpnucleo</RepositoryUrl>
+		<RepositoryType>GIT</RepositoryType>
+		<PackageTags>Cpnucleo</PackageTags>
+		<Description>Core code for Cpnucleo</Description>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>annotations</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MagicOnion.Abstractions" Version="4.5.0" />
+		<PackageReference Include="MediatR" Version="10.0.1" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+	</ItemGroup>
+
+</Project>

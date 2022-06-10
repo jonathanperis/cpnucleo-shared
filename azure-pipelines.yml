@@ -19,11 +19,8 @@ name: $(date:yyyyMMdd)$(rev:.r)
 
 steps:
 
-- task: UseGitVersion@5
-  displayName: Set Git Version
+- task: gitversion/execute@0
   inputs:
-    versionSpec: '5.x'
-    updateAssemblyInfo: false
     useConfigFile: true
     configFilePath: 'GitVersion.yml'
 

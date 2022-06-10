@@ -1,15 +1,15 @@
 trigger:
-- master
+- main
 pr:
-- master
+- main
 
 variables:
   solution: '**/*.sln'
   project: '**/Shared.Core/*.csproj'
-  isMaster: $[eq(variables['Build.SourceBranch'], 'master')]
-  ${{ if eq(variables['Build.SourceBranch'], 'master') }}:
+  isMaster: $[eq(variables['Build.SourceBranch'], 'main')]
+  ${{ if eq(variables['Build.SourceBranch'], 'main') }}:
     buildConfiguration: Release
-  ${{ if ne(variables['Build.SourceBranch'], 'master') }}:
+  ${{ if ne(variables['Build.SourceBranch'], 'main') }}:
     buildConfiguration: Debug
 
 pool:
@@ -19,8 +19,13 @@ name: $(date:yyyyMMdd)$(rev:.r)
 
 steps:
 
-- task: gitversion/execute@0
+- task: gitversion/setup@0
   displayName: Set Git Version
+  inputs:
+    versionSpec: '5.x'
+
+- task: gitversion/execute@0
+  displayName: Set Git Config File
   inputs:
     useConfigFile: true
     configFilePath: 'GitVersion.yml'

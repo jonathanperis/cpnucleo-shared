@@ -13,7 +13,7 @@ variables:
     buildConfiguration: Debug
 
 pool:
-  vmImage: 'windows-2022'
+  vmImage: 'ubuntu-20.04'
 
 name: $(date:yyyyMMdd)$(rev:.r)
 

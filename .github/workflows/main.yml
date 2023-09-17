@@ -17,8 +17,8 @@ jobs:
       with:
         global-json-file: global.json
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
+    - name: Build project
+      run: dotnet build --configuration Release --source "./src/Cpnucleo.Shared" -p:Version=1.0.0-preview.1
 
     - name: Create the Package
       run: dotnet pack --configuration Release

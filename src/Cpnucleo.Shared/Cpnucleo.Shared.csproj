@@ -4,6 +4,20 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<RootNamespace>Cpnucleo.Shared</RootNamespace>
+		<AssemblyName>Cpnucleo.Shared</AssemblyName>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Description>Contracts to be used by the Cpnucleo sandbox project</Description>
+		<Authors>Peris Studio Team</Authors>
+		<Company>Peris Studio</Company>
+		<Product>Cpnucleo</Product>
+		<Copyright>Copyright 2023</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryType>GIT</RepositoryType>
+		<PackageProjectUrl>https://cpnucleo-mvc.azurewebsites.net/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/jonathanperis/cpnucleo-shared</RepositoryUrl>
+		<PackageTags>Peris Studio</PackageTags>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>		
 	</PropertyGroup>
 
 	<ItemGroup>

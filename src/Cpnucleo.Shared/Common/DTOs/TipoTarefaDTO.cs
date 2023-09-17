@@ -7,6 +7,4 @@ public sealed record TipoTarefaDto : BaseDto
     public string? Element { get; set; }
 
     public string? Image { get; set; }
-
-    public string? Hisllaylla { get; set; }
 }

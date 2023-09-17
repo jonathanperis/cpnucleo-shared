@@ -1,12 +1,13 @@
-name: Build, Pack and push to NuGet repository
+name: Build, Pack and Push to NuGet repository
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     defaults:
       run:

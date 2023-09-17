@@ -15,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@main
+      with:
+        fetch-depth: 0
 
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
@@ -24,17 +26,18 @@ jobs:
     - name: Install dependencies
       run: dotnet restore        
 
-    - name: Generate build number
-      uses: einaregilsson/build-number@v2 
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0
       with:
-        token: ${{secrets.github_token}}  
+        versionSpec: '5.x'
 
-    - name: Print new build number
-      run: echo "Build number is $BUILD_NUMBER"
-      # Or, if you're on Windows: echo "Build number is ${env:BUILD_NUMBER}"     
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0
+      with:
+        useConfigFile: true
 
     - name: Build project
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore /p:Version=$(GitVersion.NuGetVersion) /p:SourceLinkCreate=true /p:PublicRelease=true'
 
     - name: Create NuGet package
       run: dotnet pack --configuration Release --no-restore

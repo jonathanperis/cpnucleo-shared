@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./src/Cpnucleo.Shared"
 
     steps:
     - uses: actions/checkout@main
@@ -18,7 +21,7 @@ jobs:
         global-json-file: global.json
 
     - name: Build project
-      run: dotnet build --configuration Release --source "./src/Cpnucleo.Shared/Cpnucleo.Shared.csproj" -p:Version=1.0.0-preview.1
+      run: dotnet build --configuration Release --no-restore -p:Version=1.0.0-preview.1
 
     - name: Create the Package
       run: dotnet pack --configuration Release

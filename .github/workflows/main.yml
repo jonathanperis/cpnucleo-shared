@@ -24,11 +24,14 @@ jobs:
     - name: Install dependencies
       run: dotnet restore        
 
-    - name: Install GitVersion
-      run: dotnet tool install --global GitVersion.Tool --version 5.*
-      
-    - name: Execute GitVersion
-      run: dotnet-gitversion        
+    - name: Generate build number
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.github_token}}  
+
+    - name: Print new build number
+      run: echo "Build number is $BUILD_NUMBER"
+      # Or, if you're on Windows: echo "Build number is ${env:BUILD_NUMBER}"     
 
     - name: Build project
       run: dotnet build --configuration Release --no-restore
@@ -37,4 +40,4 @@ jobs:
       run: dotnet pack --configuration Release --no-restore
 
     - name: Publish
-      run: dotnet nuget push "bin/Release/Cpnucleo.Shared.1.0.0.nupkg" -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "bin/Release/Cpnucleo.Shared.1.0.1.nupkg" -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json

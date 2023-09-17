@@ -1,4 +1,4 @@
-name: Build, Pack and push to Nuget repository
+name: Build, Pack and push to NuGet repository
 
 on:
   push:
@@ -20,10 +20,13 @@ jobs:
       with:
         global-json-file: global.json
 
+    - name: Install dependencies
+      run: dotnet restore        
+
     - name: Build project
       run: dotnet build --configuration Release --no-restore -p:Version=1.0.0-preview.1
 
-    - name: Create the Package
+    - name: Create NuGet package
       run: dotnet pack --configuration Release
 
     - name: Publish

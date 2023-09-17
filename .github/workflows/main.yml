@@ -35,6 +35,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0
       with:
         useConfigFile: true
+        updateAssemblyInfo: true
 
     - name: Build project
       run: dotnet build --configuration Release --no-restore /p:Version=$(GitVersion.NuGetVersion) /p:SourceLinkCreate=true /p:PublicRelease=true

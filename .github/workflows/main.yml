@@ -38,7 +38,7 @@ jobs:
         updateAssemblyInfo: true
 
     - name: Build project
-      run: dotnet build --configuration Release --no-restore /p:Version=$(GitVersion.NuGetVersion) /p:SourceLinkCreate=true /p:PublicRelease=true
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ env.GitVersion_NuGetVersion }} /p:SourceLinkCreate=true /p:PublicRelease=true
 
     - name: Create NuGet package
       run: dotnet pack --configuration Release --no-restore

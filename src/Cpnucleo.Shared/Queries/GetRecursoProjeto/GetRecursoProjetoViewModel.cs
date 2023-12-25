@@ -1,7 +1,3 @@
 ﻿namespace Cpnucleo.Shared.Queries.GetRecursoProjeto;
 
-public sealed record GetRecursoProjetoViewModel : BaseQuery
-{
-    public RecursoProjetoDto? RecursoProjeto { get; set; }
-    public required OperationResult OperationResult { get; set; }
-}
+public sealed record GetRecursoProjetoViewModel(OperationResult OperationResult, RecursoProjetoDto? RecursoProjeto = default) : BaseQuery;

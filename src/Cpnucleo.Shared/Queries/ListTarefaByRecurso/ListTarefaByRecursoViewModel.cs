@@ -1,7 +1,3 @@
 ﻿namespace Cpnucleo.Shared.Queries.ListTarefaByRecurso;
 
-public sealed record ListTarefaByRecursoViewModel : BaseQuery
-{
-    public List<TarefaDto>? Tarefas { get; set; }
-    public required OperationResult OperationResult { get; set; }
-}
+public sealed record ListTarefaByRecursoViewModel(OperationResult OperationResult, List<TarefaDto>? Tarefas = default) : BaseQuery;

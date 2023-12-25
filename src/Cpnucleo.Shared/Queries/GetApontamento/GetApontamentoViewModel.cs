@@ -1,7 +1,3 @@
 ﻿namespace Cpnucleo.Shared.Queries.GetApontamento;
 
-public sealed record GetApontamentoViewModel : BaseQuery
-{
-    public ApontamentoDto? Apontamento { get; set; }
-    public required OperationResult OperationResult { get; set; }
-}
+public sealed record GetApontamentoViewModel(OperationResult OperationResult, ApontamentoDto? Apontamento = default) : BaseQuery;

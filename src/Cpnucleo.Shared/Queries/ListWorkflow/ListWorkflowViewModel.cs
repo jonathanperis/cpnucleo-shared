@@ -1,7 +1,3 @@
 ﻿namespace Cpnucleo.Shared.Queries.ListWorkflow;
 
-public sealed record ListWorkflowViewModel : BaseQuery
-{
-    public List<WorkflowDto>? Workflows { get; set; }
-    public required OperationResult OperationResult { get; set; }
-}
+public sealed record ListWorkflowViewModel(OperationResult OperationResult, List<WorkflowDto>? Workflows = default) : BaseQuery;
